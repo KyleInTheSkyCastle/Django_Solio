@@ -1,0 +1,38 @@
+.carousel-item {
+    height: 300px;
+}
+
+.flexbox {
+    display: flexbox;
+}
+
+.carousel-inner {
+    height: 300px;
+    /* width: 800px; */
+}
+
+/* .container {
+    height: 300px;
+} */
+.carousel-item.active {
+    height: 300px;
+}
+
+.col-lg-4 {
+    text-align: center;
+}
+
+.lead {
+    padding: 10px;
+}
+
+.form-signin {
+    height: 300px;
+    width: 300px;
+    margin-left: 30px;
+    padding-bottom: 20px;
+}
+
+.marketing {
+    margin-top: 20px;
+}

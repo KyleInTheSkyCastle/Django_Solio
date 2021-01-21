@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% load staticfiles%}
+
+{% block content %}
+<!-- ---
+layout: examples
+title: Dashboard Template
+extra_css: "dashboard.css"
+extra_js:
+- "https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"
+- "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"
+- "dashboard.js"
+--- -->
+
+
+<!-- <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul>
+</nav> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <img src="{% static 'img/people.png' %}" class="img-fluid" alt="">
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                </div>
+
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Activation</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mystock' %}">
+                            <span data-feather="file-text"></span>
+                            Watchlist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio' %}">
+                            <span data-feather="file-text"></span>
+                            Portfolio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'setting' %}">
+                            <span data-feather="file-text"></span>
+                            Account Setting
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="page-inner">
+                <div class="page-section">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card card">
+                                <h6 class="card-header"> Your Details </h6>
+                                <nav class="nav nav-tabs flex-column">
+                                    <a href="profile_settings.html" class="nav-link activate">
+                                        Profile</a>
+                                    <a href="account_settings.html" class="nav-link activate">
+                                        Account</a>
+                                    <a href="notification_settings.html" class="nav-link activate">
+                                        Notifications</a>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+            <script src=" static/js/dashboard.js"></script>
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+        </main>
+    </div>
+</div>
+
+{% endblock %}

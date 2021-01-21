@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles%}
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="static/css/styles.css" rel="stylesheet" />
+
+<style>
+    #chart {
+        max-width: 650px;
+        margin: 35px auto;
+    }
+</style>
+
+<!-- <script src="static/js/irregular-data-series.js"></script> -->
+
+
+<!-- <style type="text/css">
+    @import url('http://getbootstrap.com/2.3.2/assets/css/bootstrap.css');
+    */
+    /* .container {
+		margin-top: 10px;
+	}
+
+	.nav-tabs>li {
+		position: relative;
+	}
+
+	.nav-tabs>li>a {
+		display: inline-block;
+	}
+
+	.nav-tabs>li>span {
+		display: none;
+		cursor: pointer;
+		position: absolute;
+		right: 6px;
+		top: 8px;
+		color: red;
+	}
+
+	.nav-tabs>li:hover>span {
+		display: inline-block;
+	}
+</style> -->
+
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <img src="{% static 'img/people.png' %}" class="img-fluid" style="height:100px; width:auto">
+                <!-- <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                </div> -->
+
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Activation</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mystock' %}">
+                            <span data-feather="file-text"></span>
+                            Stock
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio' %}">
+                            <span data-feather="file-text"></span>
+                            Portfolio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'aapl' %}">
+                            <span data-feather="file-text"></span>
+                            Prediction
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <!-- <main role="main" class="col-md-3 col-lg-3"> -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="page-inner">
+                <div class="page-section">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <!-- <div class="card card"> -->
+                            <h6> Your Portfolio </h6>
+
+
+
+                            <br />
+                            <!-- <input type="button" class="btn btn-primary" value="Create a New Portfolio" data-toggle="modal" data-target="#myModal">
+
+
+
+
+                            <div class="container">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="active"><a href="#contact_01" data-toggle="tab">Welcome</a><span>x</span>
+                                    </li>
+                                    <li><a href="#" class="add-contact"></a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="contact_01">Contact Form: Welcome</div>
+                                </div>
+                            </div> -->
+
+                            <div id="app"></div>
+
+                            <div id="html">
+                                &lt;div id=&quot;chart&quot;&gt;&#10; &lt;ReactApexChart options={this.state.options} series={this.state.series} type=&quot;area&quot; height=&quot;350&quot; /&gt;&#10; &lt;/div&gt;
+                            </div>
+                            <!-- <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script> -->
+                            <!-- <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script> -->
+                            <!-- <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+
+                            <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+                            <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+                            <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js">
+                            </script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+                            <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+                            <script src="static/js/portfolio.js"></script>
+                            <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+
+
+                            <script type="text/babel">
+                                // var ts2 = 0;
+								var dates = [];
+							    var spikes = [5, -5, 3, -3, 8, -8]
+							    console.log(dataSeries.length)
+								for (var j = 0; j < dataSeries.length; j++) {
+									var date = [];
+								    for (var i = 0; i < dataSeries[j].length; i++) {
+								      // console.log(dataSeries)
+								      var ts2 = new Date(dataSeries[j][i].date).getTime();
+								      var innerArr = [ts2, (dataSeries[j][i].value)];
+								      date.push(innerArr)
+								      // console.log(dates)
+								    }
+									dates.push(date)
+								}
+
+								class LineChart extends React.Component {
+							      constructor(props) {
+							        super(props);
+							        this.state = {
+							          options: {
+							            chart: {
+							              stacked: false,
+							              zoom: {
+							                type: 'x',
+							                enabled: true
+							              },
+							              toolbar: {
+							                autoSelected: 'zoom'
+							              }
+							            },
+							            plotOptions: {
+							              line: {
+							                curve: 'smooth',
+							              }
+							            },
+							            dataLabels: {
+							              enabled: false
+							            },
+							            markers: {
+							              size: 0,
+							              style: 'full',
+							            },
+							            //colors: ['#0165fc'],
+							            title: {
+							              text: 'Stock Price Movement',
+							              align: 'left'
+							            },
+							            fill: {
+							              type: 'gradient',
+							              gradient: {
+							                shadeIntensity: 1,
+							                inverseColors: false,
+							                opacityFrom: 0.5,
+							                opacityTo: 0,
+							                stops: [0, 90, 100]
+							              },
+							            },
+							            yaxis: {
+							              min: 20,
+							              max: 2500,
+							              labels: {
+							                formatter: function (val) {
+							                  return (val).toFixed(0);
+							                },
+							              },
+							              title: {
+							                text: 'Price'
+							              },
+							            },
+							            xaxis: {
+							                labels: {
+							                datetimeFormatter: {
+							                year: 'yyyy',
+							                month: 'MM / yyyy',
+							                day: 'dd/MM/yy',
+							                hour: 'HH:mm'
+							            }
+							        },
+							              type: 'datetime',
+							            },
+							            tooltip: {
+							              shared: false,
+							              y: {
+							                formatter: function (val) {
+							                  return (val).toFixed(0)
+							                }
+							              }
+							            }
+							          },
+							          series: [{
+							            name: 'GOOG',
+							            data: dates[0]
+									},{
+										name: 'AAPL',
+							            data: dates[1]
+									},{
+										name: 'AVG',
+							            data: dates[2]
+									}],
+							        }
+							      }
+							      render() {
+							        return (
+							          <div>
+							            <div id="chart">
+							              <ReactApexChart options={this.state.options} series={this.state.series} type="area" height="350" />
+							            </div>
+							            <div id="html-dist">
+							            </div>
+							          </div>
+							        );
+							      }
+							    }
+							    const domContainer = document.querySelector('#app');
+							    ReactDOM.render(React.createElement(LineChart), domContainer);
+							  </script>
+
+
+                            <!-- 模态框 -->
+                            <!-- <div class="modal fade" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Choose Stocks</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+
+                                        <div class="modal-body">
+                                            <section id="table" class="py-5">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead class="thead-dark">
+
+
+                                                                <tr>
+                                                                    <th>
+                                                                        <input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose">
+                                                                    </th>
+                                                                    <! columns>
+                                                                        <th scope="col">Company Name</th>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                {% if myticker %}
+
+                                                                {% for mystock_item in mystock %}
+                                                                <tr>
+                                                                    <th>
+                                                                        <input type="checkbox" name="stock" lay-skin="primary" lay-filter="allChoose" value="{{ mystock_item.symbol }}">
+                                                                    </th>
+
+
+                                                                    <th scope="row">
+                                                                        <a href="{% url 'charts_data' mystock_item.symbol %}">{{ mystock_item.companyName }}</a>
+                                                                    </th>
+                                                                </tr>
+
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="add-contact" id="DuZhi">Create</button>
+
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+
+                                        </div> -->
+
+
+
+                            <!-- <script>
+                                $(function() {
+                                    checkBox();
+
+                                    function checkBox() {
+                                        var $thr = $("table thead tr");
+                                        var $checkAllTh = $("table thead tr").find('input').parent();
+                                        var $tbr = $("table tbody tr");
+
+                                        var $checkAll = $thr.find('input');
+
+                                        $checkAll.click(function(event) {
+
+                                            $tbr.find('input').prop('checked', $(this).prop('checked'));
+                                            if ($(this).prop('checked')) {
+                                                $tbr.find('input').parent().parent().addClass('danger');
+                                            } else {
+                                                $tbr.find('input').parent().parent().removeClass('danger');
+                                            }
+
+                                            event.stopPropagation();
+                                        });
+
+                                        $checkAllTh.click(function() {
+                                            $(this).find('input').click();
+                                        });
+
+                                        $tbr.find('input').click(function(event) {
+
+                                            $(this).parent().parent().toggleClass('danger');
+
+                                            $checkAll.prop('checked', $tbr.find('input:checked').length == $tbr.find('input').length ?
+                                                true : false);
+                                            event.stopPropagation();
+                                        });
+                                        $tbr.click(function() {
+                                            $(this).find('input').click();
+                                        });
+                                    }
+
+
+                                    $(".nav-tabs").on("click", "a", function(e) {
+                                            e.preventDefault();
+
+                                        })
+                                        .on("click", "span", function() {
+                                            var anchor = $(this).siblings('a');
+                                            $(anchor.attr('href')).remove();
+                                            $(this).parent().remove();
+                                            $(".nav-tabs li").children('a').first().click();
+                                        });
+
+                                    $('.add-contact').click(function(e) {
+
+                                        var v = [];
+                                        $(":checkbox[name='stock']:checked").each(function() {
+                                            v.push($(this).val());
+                                        });
+                                        e.preventDefault();
+                                        var id = $(".nav-tabs").children().length; //think about it ;)
+                                        var tabId = 'contact_0' + id;
+                                        $(this).closest('li').before('<li><a href="#contact_0' + id + '" data-toggle="tab">New Portfolio</a> <span> x </span></li>');
+                                        $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: ' + v.toString() + '</div>');
+                                        $('.nav-tabs li:nth-child(' + id + ') a').click();
+
+
+                                        for (var i = 0; i < v.length; i++) {
+                                            var ele = v[i];
+                                            params[i] = ele;
+                                        }
+
+                                        console.log(params)
+
+
+                                        $.ajax({
+                                            url: "portfolio_data",
+                                            data: params,
+                                            dataType: "json",
+                                            success: function(data) {
+
+
+                                            },
+
+                                        });
+
+
+                                    });
+                                });
+                            </script> -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+
+            <!-- <script src=" static/js/dashboard.js"></script> -->
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+        </main>
+    </div>
+</div>
+
+{% endblock %}

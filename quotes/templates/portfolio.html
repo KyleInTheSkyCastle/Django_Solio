@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles%}
+<!-- <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<link href="static/css/styles.css" rel="stylesheet" />
+
+<!-- <style>
+	#chart {
+		max-width: 650px;
+		margin: 35px auto;
+	}
+</style> -->
+
+<!-- <script src="static/js/irregular-data-series.js"></script> -->
+
+
+<!-- <style type="text/css">
+	@import url('http://getbootstrap.com/2.3.2/assets/css/bootstrap.css');
+
+	.container {
+		margin-top: 10px;
+	}
+
+	.nav-tabs>li {
+		position: relative;
+	}
+
+	.nav-tabs>li>a {
+		display: inline-block;
+	}
+
+	.nav-tabs>li>span {
+		display: none;
+		cursor: pointer;
+		position: absolute;
+		right: 6px;
+		top: 8px;
+		color: red;
+	}
+
+	.nav-tabs>li:hover>span {
+		display: inline-block;
+	}
+</style> -->
+
+
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+			<div class="sidebar-sticky">
+				<img src="{% static 'img/people.png' %}" class="img-fluid" style="height:100px;width:auto">
+				<!-- <div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Follow</button>
+					<button type="button" class="btn btn-danger btn-sm">Message</button>
+				</div> -->
+
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>Activation</span>
+					<a class="d-flex align-items-center text-muted" href="#">
+						<span data-feather="plus-circle"></span>
+					</a>
+				</h6>
+				<ul class="nav flex-column mb-2">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'mystock' %}">
+							<span data-feather="file-text"></span>
+							Stock
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'portfolio' %}">
+							<span data-feather="file-text"></span>
+							Portfolio
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'aapl' %}">
+							<span data-feather="file-text"></span>
+							Prediction
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+			<div class="page-inner">
+				<div class="page-section">
+					<div class="row">
+						<div class="col-lg-4">
+							<h6> Your Portfolio </h6>
+							<br />
+							<input type="button" class="btn btn-primary" value="Create a New Portfolio" data-toggle="modal" data-target="#myModal">
+							<div class="container">
+								<ul class="nav nav-tabs" role="tablist">
+									<li class="active"><a href="#contact_01" data-toggle="tab">Welcome</a><span>x</span>
+									</li>
+									<li><a href="#" class="add-contact"></a>
+									</li>
+
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="contact_01">Contact Form: Welcome</div>
+								</div>
+							</div>
+
+							<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+							<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+							<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+							<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+							<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+							<script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js">
+							</script>
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+							<script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+							<script src="static/js/portfolio.js"></script>
+							<script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+
+										<div class="modal-header">
+											<h4 class="modal-title">Choose Stocks</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<section id="table" class="py-5">
+												<div class="row">
+													<div class="col-xs-6">
+
+														<table class="table table-striped table-bordered table-hover">
+															<thead class="thead-dark">
+
+
+																<tr>
+																	<th>
+																		<input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose">
+																	</th>
+																	<! columns>
+																		<th scope="col">Company Name</th>
+															</thead>
+															<tbody>
+
+																{% if myticker %}
+
+																{% for mystock_item in mystock %}
+																<tr>
+																	<th>
+																		<input type="checkbox" name="stock" lay-skin="primary" lay-filter="allChoose" value="{{ mystock_item.symbol }}">
+																	</th>
+
+
+																	<th scope="row">
+																		<a href="{% url 'charts_data' mystock_item.symbol %}">{{ mystock_item.companyName }}</a>
+																	</th>
+																</tr>
+
+																{% endfor %}
+															</tbody>
+														</table>
+														{% endif %}
+
+													</div>
+												</div>
+
+												<div class="modal-footer">
+
+													<button type="button" class="add-contact" onclick="jump()">Create</button>
+
+													<script>
+														function jump() {
+															window.open('portfolio_chart.html');
+														}
+													</script>
+
+
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												</div>
+
+										</div>
+
+
+
+										<script>
+											$(function() {
+												checkBox();
+
+												function checkBox() {
+													var $thr = $("table thead tr");
+													var $checkAllTh = $("table thead tr").find('input').parent();
+													var $tbr = $("table tbody tr");
+
+													var $checkAll = $thr.find('input');
+
+													$checkAll.click(function(event) {
+
+														$tbr.find('input').prop('checked', $(this).prop('checked'));
+														if ($(this).prop('checked')) {
+															$tbr.find('input').parent().parent().addClass('danger');
+														} else {
+															$tbr.find('input').parent().parent().removeClass('danger');
+														}
+
+														event.stopPropagation();
+													});
+
+													$checkAllTh.click(function() {
+														$(this).find('input').click();
+													});
+
+													$tbr.find('input').click(function(event) {
+
+														$(this).parent().parent().toggleClass('danger');
+
+														$checkAll.prop('checked', $tbr.find('input:checked').length == $tbr.find('input').length ?
+															true : false);
+														event.stopPropagation();
+													});
+													$tbr.click(function() {
+														$(this).find('input').click();
+													});
+												}
+
+												$(".nav-tabs").on("click", "a", function(e) {
+														e.preventDefault();
+													})
+													.on("click", "span", function() {
+														var anchor = $(this).siblings('a');
+														$(anchor.attr('href')).remove();
+														$(this).parent().remove();
+														$(".nav-tabs li").children('a').first().click();
+													});
+
+												$('.add-contact').click(function(e) {
+													var v = [];
+													$(":checkbox[name='stock']:checked").each(function() {
+														v.push($(this).val());
+													});
+													e.preventDefault();
+													var id = $(".nav-tabs").children().length;
+													var tabId = 'contact_0' + id;
+													$(this).closest('li').before('<li><a href="#contact_0' + id + '" data-toggle="tab">New Portfolio</a> <span> x </span></li>');
+													$('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: ' + v.toString() + '</div>');
+													$('.nav-tabs li:nth-child(' + id + ') a').click();
+													var params = {};
+
+													for (var i = 0; i < v.length; i++) {
+														var ele = v[i];
+														params[i] = ele;
+													}
+
+													console.log(params)
+
+
+													$.ajax({
+														url: "portfolio_data",
+														data: params,
+														dataType: "json",
+														success: function(data) {
+
+														},
+
+													});
+
+
+												});
+											});
+										</script>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<script src=" https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+					<script src=" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+		</main>
+
+
+		<!-- <Form method="POST">
+			<div class="container">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3>Portfolio <div class="pull-right">
+								<button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus"></i></button>
+								<button type="button" class="btn btn-danger btn-circle" data-toggle="modal" data-target="#deleteModal"><i class="glyphicon glyphicon-trash"></i></button>
+							</div>
+						</h3>
+
+					</div>
+
+					<div class="panel-body scrollable-panel">
+
+						<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+							<div class="container">
+								<div class="row">
+
+									<div class="col-md-11">
+
+										<div class="panel panel-default panel-table">
+											<div class="panel-heading">
+												<div class="row">
+													<div class="col col-xs-6">
+														<h3 class="panel-title">Portfolio List</h3>
+													</div>
+													<div class="col col-xs-6 text-right">
+
+													</div>
+												</div>
+											</div>
+											<div class="panel-body table-responsive">
+												<table class="table table-striped table-bordered table-list">
+													{% csrf_token %}
+													<tbody id="myTable">
+														{% if port %}
+
+														{% for myport in port %}
+														<tr>
+
+															<td>
+																<p class="card-text"><input name="delete_port" type="checkbox" value="{{myport.portfolio}}+id={{myport.id}}">
+																	<a href="/portfolio/{{myport.portfolio}}+?pid={{myport.id}}">{{myport.portfolio}}</a></p>
+															</td>
+														</tr>
+														{% endfor %}
+														{% else %}
+														<p class="card-text">You do not have any portfolio. Create a <a data-toggle="modal" data-target="#myModal">new</a> one !</p>
+														{% endif %}
+
+													</tbody>
+												</table>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="container">
+
+								<div class="modal fade" id="myModal" role="dialog">
+									<div class="modal-dialog">
+
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">Create portfolio</h4>
+											</div>
+											<div class="modal-body">
+
+
+												<form>
+													{% csrf_token %}
+													<div class="form-group">
+														<label for="Input">Portfolio Name</label>
+														<input name="portfolio" class="form-control" placeholder="Enter name (Must not contains symbols (e.g. !@#$%^&*))">
+													</div>
+													<form role="form" action="{% url 'portfolio' %}" method="POST">
+
+														<div class="modal-footer">
+															<div class="btn-group btn-group-justified" role="group" aria-label="group button">
+																<div class="btn-group" role="group">
+																	<button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+																</div>
+																<div class="btn-group btn-delete hidden" role="group">
+																	<button type="button" id="delImage" class="btn btn-default btn-hover-red" data-dismiss="modal" role="button">Cancel</button>
+																</div>
+																<div class="btn-group" role="group">
+																	<button name="submit_port" value="create_port" type="submit" class="btn btn-danger btn-hover-green">Confirm</button>
+																</div>
+															</div>
+														</div>
+													</form>
+												</form>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</main>
+					</div>
+				</div>
+
+			</div>
+		</form> -->
+	</div>
+
+	{% endblock %}

@@ -1,0 +1,266 @@
+{% extends 'base.html' %} {% block content %}
+<main role="main ">
+
+
+
+    {% comment %} <div class='d-flex align-content-around'> {% endcomment %}
+
+
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+
+                    <svg class="bd-placeholder-img  " width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <rect width="100%" height="100%" fill="#C4B3C2" />
+                        <image href={{news_0.urlToImage}} x="100px" y="0" height="300px" width="1000px" opacity="0.6"></image>
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption ">
+                            <h2>{{ news_0.title }}</h2>
+                            <p>{{ news_0.description }}</p>
+                            <p><a class="btn btn-lg btn-primary" href={{ news_0.url }} target="_blank" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img  " width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <rect width="100%" height="100%" fill="#4FA0AB" />
+                        <image href={{news_1.urlToImage}} x="100px" y="0" height="300px" width="1000px" opacity="0.6"></image>
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h2>{{ news_1.title }}</h2>
+                            <p>{{ news_1.description }}</p>
+                            <p><a class="btn btn-lg btn-primary" href={{ news_1.url }} target="_blank" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img  " width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                        <rect width="100%" height="100%" fill="#4FAB94" />
+                        <image href={{news_2.urlToImage}} x="100px" y="0" height="300px" width="1000px" opacity="0.6"></image>
+                    </svg>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h2>{{ news_2.title }}</h2>
+                            <p>{{ news_2.description }}</p>
+                            <p><a class="btn btn-lg btn-primary" href={{ news_2.url }} target="_blank" role="button">Learn more</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+
+
+
+
+
+        <!-- <form class="form-signin">
+
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        </form> -->
+        <!-- </div> -->
+
+
+        <!-- Marketing messaging and featurettes
+  ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+
+        <div class="container marketing ">
+            <form class=" form-inline " style="width: 1400px;margin-left:70px" target="_blank" action="{% url 'search' %}" class="form-inline my-2 my-lg-0" method='POST'>
+                {% csrf_token %}
+
+
+                <!-- <! django form> -->
+                {% comment %} <input id="tags" class="form-control mr-sm-2" type="search" placeholder="Get Stock Quote" aria-label="Search" name="ticker" style="width: 800px;height: 50px; margin-top: 30px;"> {% endcomment %}
+                <input id="tags" class="form-control" name="search" type="search" aria-label="Search" placeholder="Search stock" style="width: 800px;height: 50px; margin-top: 30px;" list="codes">
+                {% comment %} <input class="form-control my-0 py-1 lime-border" style="width: 800px;height: 50px; margin-top: 30px;" type="text" id="search" name="search" placeholder="Input currency...then press enter..." aria-label="Search"
+                    list="codes"> {% endcomment %}
+                <datalist id="codes">
+                    {% for key,value in all_stocks.items %}
+                    <option value="{{value.name}} {{key}} ">
+                        {% endfor %}
+                    </option>
+                </datalist>
+
+                <button class="btn btn-outline-primary" type="submit" target="_blank" style="height: 50px;margin-top: 30px">Stock Quotes</button>
+
+            </form>
+            <!-- Three columns of text below the carousel -->
+            <div class="row ">
+                <div class="col-lg-4 ">
+                    {% comment %} <svg class="svg-icon" viewBox="0 -100 50 50" xmlns="http://www.w3.org/2000/svg"> {% endcomment %}
+
+                        {% comment %} <path
+                            d="M17.684,7.925l-5.131-0.67L10.329,2.57c-0.131-0.275-0.527-0.275-0.658,0L7.447,7.255l-5.131,0.67C2.014,7.964,1.892,8.333,2.113,8.54l3.76,3.568L4.924,17.21c-0.056,0.297,0.261,0.525,0.533,0.379L10,15.109l4.543,2.479c0.273,0.153,0.587-0.089,0.533-0.379l-0.949-5.103l3.76-3.568C18.108,8.333,17.986,7.964,17.684,7.925 M13.481,11.723c-0.089,0.083-0.129,0.205-0.105,0.324l0.848,4.547l-4.047-2.208c-0.055-0.03-0.116-0.045-0.176-0.045s-0.122,0.015-0.176,0.045l-4.047,2.208l0.847-4.547c0.023-0.119-0.016-0.241-0.105-0.324L3.162,8.54L7.74,7.941c0.124-0.016,0.229-0.093,0.282-0.203L10,3.568l1.978,4.17c0.053,0.11,0.158,0.187,0.282,0.203l4.578,0.598L13.481,11.723z">
+                        </path> {% endcomment %}
+                        <svg class="bd-placeholder-img rounded-circle " width="140 " height="140 " xmlns="http://www.w3.org/2000/svg " preserveAspectRatio="xMidYMid slice " focusable="false " role="img " aria-label="Placeholder: 140x140
+    ">
+                            <title>Placeholder</title>
+                            <rect width="100% " height="100% " fill="#DEB281 " /><text x="5% " y="50% " fill="white " dy=".3em " font-size="0.9rem">Stock of the WEEK</text>
+                        </svg>
+
+
+                        <p class="stock">{{ week_stock }}<br />
+                            <span class="text-muted small-text"> {{week_stock_company}}</span>
+                        </p>
+
+                        <p class="stock-price"> {{ week_price }}</p>
+                        <p class="stock-rate"> {{ last_week_price }} ({{ week_rate }} %)</p>
+
+
+                        <p><a class="btn btn-secondary " href="{% url 'charts_data' week_stock %}" target="_blank" role="button ">View details &raquo;</a></p>
+                </div>
+
+                <div class="col-lg-4 ">
+                    <svg class="bd-placeholder-img rounded-circle " width="140 " height="140 " xmlns="http://www.w3.org/2000/svg " preserveAspectRatio="xMidYMid slice " focusable="false " role="img " aria-label="Placeholder: 140x140
+    ">
+                        <title>Placeholder</title>
+                        <rect width="100% " height="100% " fill="#DEB281" /><text x="0% " y="50% " fill="white " dy=".3em " font-size="0.9rem">Stock of the MONTH</text>
+                    </svg>
+                    <p class="stock">{{ month_stock }}
+                        <br />
+                        <span class="text-muted small-text"> {{month_stock_company}}</span>
+                    </p>
+                    <p class="stock-price"> {{ month_price }}</p>
+                    <p class="stock-rate"> {{ last_month_price }} ({{ month_rate }} %)</p>
+                    <p><a class="btn btn-secondary " href="{% url 'charts_data' month_stock %}" target="_blank" role="button ">View details &raquo;</a></p>
+                </div>
+
+                <div class="col-lg-4 ">
+                    <svg class="bd-placeholder-img rounded-circle " width="140 " height="140 " xmlns="http://www.w3.org/2000/svg " preserveAspectRatio="xMidYMid slice " focusable="false " role="img " aria-label="Placeholder: 140x140
+    ">
+                        <title>Placeholder</title>
+                        <rect width="100% " height="100% " fill="#DEB281" /><text x="5% " y="50% " fill="white " dy=".3em " font-size="0.9rem">Stock of the YEAR</text>
+                    </svg>
+
+                    <p class="stock">{{ year_stock }}<br />
+                        <span class="text-muted small-text"> {{year_stock_company}}</span>
+                    </p>
+                    <p class="stock-price"> {{ year_price }}</p>
+                    <p class="stock-rate"> {{ last_year_price }} ({{ year_rate }} %)</p>
+                    <p><a class="btn btn-secondary " href="{% url 'charts_data' year_stock %}" target="_blank" role="button ">View details &raquo;</a></p>
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+
+            <!-- START THE FEATURETTES -->
+            <hr class="featurette-divider ">
+
+            <div class="section-heading" style="width: 940px;height: 50px; /*! margin-left: 50px; */margin-top: 30px;">
+                <h5>Recent News</h5>
+            </div>
+            <div class="row featurette ">
+                <div class="col-md-7 ">
+                    <a href={{news_3.url}} target="_blank">
+                        <h2 class="featurette-heading ">{{news_3.title}} </h2>
+                        <span class="text-muted small-text">{{news_3.publishedAt}},{{news_3.author}},{{news_3.source.name}}</span>
+                    </a>
+                    <p class="lead ">{{news_3.content}}</p>
+
+                </div>
+                <div class="col-md-5 ">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto " width="500 " height="500 " xmlns="http://www.w3.org/2000/svg " xmlns:xlink="http://www.w3.org/1999/xlink"
+                        preserveAspectRatio="xMidYMid slice " focusable="false " role="img" aria-label="Placeholder: 500x500 ">
+                        <title>Placeholder</title>
+                        <a href={{news_3.url}} target="_blank">
+                            <image href={{news_3.urlToImage}} x="0" y="0" height="100%" width="100%"></image>
+                        </a>
+                        <!-- <text x="50% " y="50% " fill="#aaa " dy=".3em ">500x500</text> -->
+                    </svg>
+                </div>
+            </div>
+
+            <hr class="featurette-divider ">
+
+            <div class="row featurette ">
+                <div class="col-md-7 order-md-2 ">
+                    <a href={{ news_4.url }} target="_blank">
+                        <h2 class="featurette-heading ">{{news_4.title}} </h2>
+                        <span class="text-muted small-text">{{news_4.publishedAt}},{{news_4.author}},{{news_4.source.name}}</span>
+                    </a>
+                    <p class="lead ">{{news_4.content}}</p>
+
+                </div>
+                <div class="col-md-5 order-md-1 ">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto " width="500 " height="500 " xmlns="http://www.w3.org/2000/svg " xmlns:xlink="http://www.w3.org/1999/xlink"
+                        preserveAspectRatio="xMidYMid slice " focusable="false " role="img" aria-label="Placeholder: 500x500 ">
+                        <title>Placeholder</title>
+                        <a href={{news_4.url}} target="_blank">
+                            <image href={{news_4.urlToImage}} x="0" y="0" height="100%" width="100%"></image>
+                        </a>
+                        <!-- <text x="50% " y="50% " fill="#aaa " dy=".3em ">500x500</text> -->
+                    </svg>
+                </div>
+            </div>
+
+            <hr class="featurette-divider ">
+
+            <div class="row featurette ">
+                <div class="col-md-7 ">
+                    <a href={{news_5.url}} target="_blank">
+                        <h2 class="featurette-heading ">{{news_5.title}} </h2>
+                        <span class="text-muted small-text ">{{news_5.publishedAt}},{{news_5.author}},{{news_5.source.name}}</span>
+                    </a>
+                    <p class="lead "> {{news_5.content}}</p>
+
+                </div>
+                <div class="col-md-5 ">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto " width="500 " height="500 " xmlns="http://www.w3.org/2000/svg " xmlns:xlink="http://www.w3.org/1999/xlink"
+                        preserveAspectRatio="xMidYMid slice " focusable="false " role="img" aria-label="Placeholder: 500x500 ">
+                        <title>Placeholder</title>
+                        <a href={{news_5.url}} target="_blank">
+                            <image href={{news_5.urlToImage}} x="0" y="0" height="100%" width="100%"></image>
+                        </a>
+                        <!-- <text x="50% " y="50% " fill="#aaa " dy=".3em ">500x500</text> -->
+                    </svg>
+                </div>
+            </div>
+            <p><a class="btn btn-lg btn-primary" href="{% url 'news' %}" target="_blank" role="button">More news</a></p>
+
+            <hr class="featurette-divider ">
+
+            <!-- /END THE FEATURETTES -->
+
+            <!-- Section Title -->
+
+
+
+
+            <!-- /.container -->
+
+
+</main>
+
+
+
+{% endblock %}

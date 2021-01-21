@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- <html lang="en"> -->
+<div>
+    <a href="aapl.html" class="btn btn-outline-primary">AAPL</a>
+    <a href="amzn.html" class="btn btn-outline-secondary">AMZN</a>
+    <a href="bac.html" class="btn btn-outline-success">BAC</a>
+    <a href="goog.html" class="btn btn-outline-danger">GOOG</a>
+    <a href="mstf.html" class="btn btn-outline-warning">MSTF</a>
+    <a href="tif.html" class="btn btn-outline-info">TIF</a>
+</div>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prediction</title>
+
+
+    <link href="static/css/styles.css" rel="stylesheet" />
+
+    <style>
+        #chart {
+            max-width: 650px;
+            margin: 35px auto;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="app"></div>
+
+    <div id="html">
+        &lt;div id=&quot;chart&quot;&gt;&#10; &lt;ReactApexChart options={this.state.options} series={this.state.series} type=&quot;area&quot; height=&quot;350&quot; /&gt;&#10; &lt;/div&gt;
+    </div>
+
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+    <script src="static/js/aapl.js"></script>
+    <script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+
+    <script type="text/babel">
+
+
+
+        var dates = [];
+        var spikes = [5, -5, 3, -3, 8, -8]
+        console.log(dataSeries.length)
+        for (var j = 0; j < dataSeries.length; j++) {
+            var date = [];
+            for (var i = 0; i < dataSeries[j].length; i++) {
+              // console.log(dataSeries)
+              var ts2 = new Date(dataSeries[j][i].date).getTime();
+              var innerArr = [ts2, (dataSeries[j][i].value)];
+              date.push(innerArr)
+              // console.log(dates)
+            }
+            dates.push(date)
+        }
+
+        class LineChart extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {
+              options: {
+                chart: {
+                  stacked: false,
+                  zoom: {
+                    type: 'x',
+                    enabled: true
+                  },
+                  toolbar: {
+                    autoSelected: 'zoom'
+                  }
+                },
+                plotOptions: {
+                  line: {
+                    curve: 'smooth',
+                  }
+                },
+                dataLabels: {
+                  enabled: false
+                },
+                markers: {
+                  size: 0,
+                  style: 'full',
+                },
+                //colors: ['#0165fc'],
+                title: {
+                  text: 'AAPL Price Prediction',
+                  align: 'left'
+                },
+                fill: {
+                  type: 'gradient',
+                  gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0,
+                    stops: [0, 90, 100]
+                  },
+                },
+                yaxis: {
+                  // min: 20,
+                  // max: 2500,
+                  labels: {
+                    formatter: function (val) {
+                      return (val).toFixed(0);
+                    },
+                  },
+                  title: {
+                    text: 'Price'
+                  },
+                },
+                xaxis: {
+                    labels: {
+                    datetimeFormatter: {
+                    year: 'yyyy',
+                    month: 'MM / yyyy',
+                    day: 'dd/MM/yy',
+                    hour: 'HH:mm'
+                }
+            },
+                  type: 'datetime',
+                },
+                tooltip: {
+                  shared: false,
+                  y: {
+                    formatter: function (val) {
+                      return (val).toFixed(0)
+                    }
+                  }
+                }
+              },
+              series: [{
+                name: 'AAPL Predcition',
+                data: dates[0]
+            },{
+                name: 'AAPL',
+                data: dates[1]
+            }],
+            }
+          }
+          render() {
+            return (
+              <div>
+                <div id="chart">
+                  <ReactApexChart options={this.state.options} series={this.state.series} type="area" height="350" />
+                </div>
+                <div id="html-dist">
+                </div>
+              </div>
+            );
+          }
+        }
+        const domContainer = document.querySelector('#app');
+        ReactDOM.render(React.createElement(LineChart), domContainer);
+
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+{% endblock %}

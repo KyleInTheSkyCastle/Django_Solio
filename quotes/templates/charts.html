@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles%}
+
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/fontawesome-5.data.0.8/css/fontawesome-all.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/util.min.css' %}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stolio</title>
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <style>
+        #chart {
+            max-width: 650px;
+            margin: 35px auto;
+        }
+    </style>
+</head>
+<div class="tab01-head how2 how2-cl5 bocl12 flex-s-c m-r-10 m-r-0-sr991">
+    <!-- Brand tab -->
+    <h3 class="f1-m-2 cl17 tab01-title">
+        {{symbol}} ({{txt1.companyName}}), {{txt1.primaryExchange}}
+    </h3>
+</div>
+
+<div class='d-flex align-content-around' style="width:1800px">
+    <section id="table" class="py-5" style="margin-left:30px;font-size:12px">
+        <div class="container">
+            <div class="row" style="width: 200px;">
+                <div class="col-xs-6">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Open</th>
+                                <th scope="col">Vol</th>
+                                <th scope="col">52WH</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ txt1.open }}</td>
+                                <td>{{ txt1.volume }}</td>
+                                <td>{{ txt1.week52High }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">High</th>
+                                <th scope="col">PC</th>
+                                <th scope="col">52WL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ txt1.high }}</td>
+                                <td>{{ txt1.previousClose }}</td>
+                                <td>{{ txt1.week52Low }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Low</th>
+                                <th scope="col">MktCap</th>
+                                <th scope="col">AvgVol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ txt1.low }}</td>
+                                <td>{{ txt1.marketCap }}</td>
+                                <td>{{ txt1.avgTotalVolume }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <body>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="app" style="width:1300px;margin-left:40px"></div>
+    <div id="html">
+        &lt;div id=&quot;chart&quot;&gt;&#10; &lt;ReactApexChart options={this.state.options} series={this.state.series} type=&quot;area&quot; height=&quot;350&quot; /&gt;&#10; &lt;/div&gt;
+    </div>
+    <div class="col-sm-6 p-r-25 p-r-15-sr991" style="margin-top:26px" style="width:320px">
+        <form style="height:30px;margin-bottom:15px;width:300px" class=" form-inline pos-relative bo-1-rad-22 of-hidden bocl11 m-tb-6" target="_blank" action="{% url 'search_news' %}" method="POST">
+            {% csrf_token %}
+            <input class=" f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" placeholder="Search news" name="search_news" type="search" aria-label="Search" placeholder="Search">
+            <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
+                <i class="zmdi zmdi-search"></i>
+            </button>
+        </form>
+        {% for news in top_news %}
+        <div class="flex-wr-sb-s m-b-30" style="width:320px">
+            <a href={{news.1}} target="_blank" class="size-w-1 wrap-pic-w hov1 trans-03">
+                <img src={{news.2}} alt="IMG">
+            </a>
+            <div class="size-w-2">
+                <h7 class="p-b-5">
+                    <a href={{news.1}} target="_blank" class="f1-s-5 cl3 hov-cl10 trans-03">
+                        {{news.0}}
+                    </a>
+                </h7>
+                <span class="cl8">
+                    <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+                    </a>
+                    <span class="f1-s-3 m-rl-3">
+                        {{news.3}}-
+                    </span>
+                    <span class="f1-s-3">
+                        {{news.4}}
+                    </span>
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+<div id="app1" style="width:1300px;margin-left:40px"></div>
+<div id="html">
+    &lt;div id=&quot;chart&quot;&gt;&#10; &lt;ReactApexChart options={this.state.options} series={this.state.series} type=&quot;area&quot; height=&quot;350&quot; /&gt;&#10; &lt;/div&gt;
+</div>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+<!-- <script src="static/js/irregular-data-series.js"></script> -->
+<script src="static/js/test1.js"></script>
+<script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+<script type="text/babel">
+    // var ts2 = 0;
+    var dates = [];
+    var spikes = [5, -5, 3, -3, 8, -8]
+    // console.log(dataSeries.length)
+    for (var i = 0; i < dataSeries[0].length; i++) {
+      // console.log(dataSeries)
+      var ts2 = new Date(dataSeries[0][i].date).getTime();
+      var innerArr = [ts2, (dataSeries[0][i].value)];
+      dates.push(innerArr)
+      console.log(dates)
+    }
+    class LineChart extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          options: {
+            chart: {
+              stacked: false,
+              zoom: {
+                type: 'x',
+                enabled: true
+              },
+              toolbar: {
+                autoSelected: 'zoom'
+              }
+            },
+            plotOptions: {
+              line: {
+                curve: 'smooth',
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            markers: {
+              size: 0,
+              style: 'full',
+            },
+            //colors: ['#0165fc'],
+            title: {
+              text: 'Stock Price Movement',
+              align: 'left'
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 90, 100]
+              },
+            },
+            yaxis: {
+
+              labels: {
+                formatter: function (val) {
+                  return (val).toFixed(0);
+                },
+              },
+              title: {
+                text: 'Price'
+              },
+            },
+            xaxis: {
+                labels: {
+                datetimeFormatter: {
+                year: 'yyyy',
+                month: 'MM / yyyy',
+                day: 'dd/MM/yy',
+                hour: 'HH:mm'
+            }
+        },
+              type: 'datetime',
+            },
+            tooltip: {
+              shared: false,
+              y: {
+                formatter: function (val) {
+                  return (val).toFixed(0)
+                }
+              }
+            }
+          },
+          series: [{
+            name: 'XYZ MOTORS',
+            data: dates
+          }],
+        }
+      }
+      render() {
+        return (
+          <div>
+            <div id="chart">
+              <ReactApexChart options={this.state.options} series={this.state.series} type="area" height="350" />
+            </div>
+            <div id="html-dist">
+            </div>
+          </div>
+        );
+      }
+    }
+    const domContainer = document.querySelector('#app');
+    ReactDOM.render(React.createElement(LineChart), domContainer);
+  </script>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.2/prop-types.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
+<script src="static/js/test.js"></script>
+<script src="https://unpkg.com/react-apexcharts@1.1.0/dist/react-apexcharts.iife.min.js"></script>
+
+<script type="text/babel">
+    // var ts2 = 0;
+    var dates = [];
+    var spikes = [5, -5, 3, -3, 8, -8]
+    // console.log(dataSeries.length)
+    for (var i = 0; i < dataSeries1[0].length; i++) {
+      // console.log(dataSeries)
+      var ts2 = new Date(dataSeries1[0][i].date).getTime();
+      var innerArr = [ts2, (dataSeries1[0][i].value)];
+      dates.push(innerArr)
+      console.log(dates)
+    }
+    class LineChart extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          options: {
+            chart: {
+              stacked: false,
+              zoom: {
+                type: 'x',
+                enabled: true
+              },
+              toolbar: {
+                autoSelected: 'zoom'
+              }
+            },
+            plotOptions: {
+              line: {
+                curve: 'smooth',
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            markers: {
+              size: 0,
+              style: 'full',
+            },
+            //colors: ['#0165fc'],
+            title: {
+              text: 'Stock Price Movement',
+              align: 'left'
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 90, 100]
+              },
+            },
+            yaxis: {
+
+              labels: {
+                formatter: function (val) {
+                  return (val).toFixed(0);
+                },
+              },
+              title: {
+                text: 'Price'
+              },
+            },
+            xaxis: {
+                labels: {
+                datetimeFormatter: {
+                year: 'yyyy',
+                month: 'MM / yyyy',
+                day: 'dd/MM/yy',
+                hour: 'HH:mm'
+            }
+        },
+              type: 'datetime',
+            },
+            tooltip: {
+              shared: false,
+              y: {
+                formatter: function (val) {
+                  return (val).toFixed(0)
+                }
+              }
+            }
+          },
+          series: [{
+            name: 'XYZ MOTORS',
+            data: dates
+          }],
+        }
+      }
+      render() {
+        return (
+          <div>
+            <div id="chart">
+              <ReactApexChart options={this.state.options} series={this.state.series} type="area" height="350" />
+            </div>
+            <div id="html-dist">
+            </div>
+          </div>
+        );
+      }
+    }
+    const domContainer = document.querySelector('#app1');
+    ReactDOM.render(React.createElement(LineChart), domContainer);
+  </script>
+
+<!--===============================================================================================-->
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+
+
+
+<!--===============================================================================================-->
+<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'js/news/main.js' %}"></script>
+
+{% endblock %}

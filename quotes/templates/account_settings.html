@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load staticfiles%}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <img src="{% static 'img/people.png' %}" class="img-fluid" alt="">
+                <!-- <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                </div> -->
+
+
+                <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Activation</span>
+                    <a class="d-flex align-items-center text-muted" href="#">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'mystock' %}">
+                            <span data-feather="file-text"></span>
+                            Stock
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'portfolio' %}">
+                            <span data-feather="file-text"></span>
+                            Portfolio
+                        </a>
+                    </li>
+
+                </ul> -->
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="page-inner">
+                <div class="page-section">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card card">
+                                <h6 class="card-header"> Your Details </h6>
+                                <nav class="nav nav-tabs flex-column">
+                                    <a href="profile_settings.html" class="nav-link activate">
+                                        Profile</a>
+                                    <a href="account_settings.html" class="nav-link activate">
+                                        Account</a>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="card card-fluid">
+                                <h6 class="card-header">Account </h6>
+                                <div class="card-body">
+                                    <form action="{% url 'change_pass' user.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-row">
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="first_name">First Name</label>
+                                                <input type="text" readonly class="form-control" name="first_name" value="{{ user.first_name }}" required>
+                                            </div>
+
+                                            <div class="col-md-6 mb-3">
+                                                <label for="last_name">Last Name</label>
+                                                <input type="text" readonly class="form-control" name="last_name" value="{{ user.last_name }}" required>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" readonly class="form-control" name="email" value="{{ user.email }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="old_password">Password</label>
+                                            <input type="password" readonly class="form-control" name="old_password" value="password" required>
+                                        </div>
+                                        <hr>
+
+                                        <div class="form-actions">
+                                            <label for="new_password">New Password</label>
+                                            <input type="password" class="form-control ml-auto mr-3" name="new_password" placeholder="Enter New Password" required>
+                                        </div>
+                                        </br>
+                                        <input type="submit" value="update" class="btn btn-secondary btn-block">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+            <script src=" static/js/dashboard.js"></script>
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+            <script src=" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+        </main>
+    </div>
+</div>
+
+{% endblock %}
